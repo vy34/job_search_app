@@ -20,7 +20,7 @@ class PageOne extends StatelessWidget {
             Column(
               children: [
                 ReusableText(
-                  text: 'Find You Dream Job',
+                  text: 'Find Your Dream Job',
                   style: appStyle(30, Color(kLight.value), FontWeight.w500),
                 ),
                 const SizedBox(height: 10),
