@@ -13,6 +13,35 @@ class PageTwo extends StatelessWidget {
         width: width,
         height: hieght,
         color: Color(kDarkBlue.value),
+        child: Column(
+          children: [
+            const SizedBox(height: 65),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset('assets/images/page2.png'),
+            ),
+
+            const SizedBox(height: 20),
+            Column(
+              children: [
+                Text(
+                  'Stable Yourself \n With Your Abilities',
+                  textAlign: TextAlign.center,
+                  style: appStyle(30, Color(kLight.value), FontWeight.w500),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Text(
+                    'Explore all the most exciting job roles based on your interest and study major. Find your dream job, and start your career',
+                    style: appStyle(15, Color(kLight.value), FontWeight.normal),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -14,7 +14,7 @@ import 'package:job_search_app/views/screens/mainscreen.dart';
 import 'package:job_search_app/views/screens/onboarding/onboarding_screen.dart';
 import 'package:provider/provider.dart';
 
-Widget defaultHome = const Mainscreen();
+Widget defaultHome = const OnboardingScreen();
 
 ///TODO: Hook the app to firebase using firebase cli
 void main() async {
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Dbestech JobHub',
+          title: 'Job Search App',
           theme: ThemeData(
             scaffoldBackgroundColor: Color(kLight.value),
             iconTheme: IconThemeData(color: Color(kDark.value)),
