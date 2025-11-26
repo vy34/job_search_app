@@ -8,4 +8,23 @@ import 'package:job_search_app/models/response/jobs/jobs_response.dart';
 import 'package:job_search_app/services/helpers/book_helper.dart';
 import 'package:job_search_app/services/helpers/jobs_helper.dart';
 
-class JobsNotifier extends ChangeNotifier {}
+class JobsNotifier extends ChangeNotifier {
+  late Future<List<JobsResponse>> jobsList;
+  late Future<List<JobsResponse>> recentJobsList;
+  late Future<GetJobRes> job;
+
+  Future<List<JobsResponse>> getJobs() {
+    jobsList = JobsHelper.getJobs();
+    return jobsList;
+  }
+
+  Future<List<JobsResponse>> getRecentJobs() {
+    recentJobsList = JobsHelper.getRecentJobs();
+    return recentJobsList;
+  }
+
+  Future<GetJobRes> getJob(String jobId) {
+    job = JobsHelper.getJob(jobId);
+    return job;
+  }
+}

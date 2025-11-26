@@ -8,7 +8,12 @@ import 'package:job_search_app/views/common/app_style.dart';
 import 'package:job_search_app/views/common/drawer/drawer_widget.dart';
 import 'package:job_search_app/views/common/heading_widget.dart';
 import 'package:job_search_app/views/common/search.dart';
+import 'package:job_search_app/views/screens/auth/login.dart';
 import 'package:job_search_app/views/screens/auth/profile_page.dart';
+import 'package:job_search_app/views/screens/jobs/job_list_page.dart';
+import 'package:job_search_app/views/screens/jobs/widgets/PopularJobs.dart';
+import 'package:job_search_app/views/screens/jobs/widgets/Recentlist.dart';
+import 'package:job_search_app/views/screens/search/search_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,7 +34,8 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.all(12.0.h),
               child: GestureDetector(
                 onTap: () {
-                  Get.to(() => const ProfilePage(drawer: false));
+                  // Get.to(() => const ProfilePage(drawer: false));
+                  Get.to(() => const LoginPage());
                 },
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(50)),
@@ -58,15 +64,44 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Search \n Finding and Apply",
+                  "Finding and Apply",
                   style: appStyle(38, Color(kDark.value), FontWeight.bold),
                 ),
                 SizedBox(height: 20.h),
-                SearchWidget(onTap: () {}),
-                SizedBox(height: 20.h),
-                const HeadingWidget(text: 'Popular Jobs '),
+
+                SearchWidget(
+                  onTap: () {
+                    Get.to(() => const SearchPage());
+                  },
+                ),
+
+                SizedBox(height: 30.h),
+
+                HeadingWidget(
+                  text: 'Popular Jobs ',
+                  onTap: () {
+                    Get.to(() => const JobListPage());
+                  },
+                ),
+
                 SizedBox(height: 15.h),
-                const HeadingWidget(text: 'Recently Posted'),
+
+                ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(12.w)),
+                  child: const PopularJobs(),
+                ),
+
+                SizedBox(height: 15.h),
+
+                HeadingWidget(
+                  text: 'Recently Posted',
+                  onTap: () {
+                    Get.to(() => const JobListPage());
+                  },
+                ),
+
+                SizedBox(height: 15.h),
+                const RecentList(),
               ],
             ),
           ),

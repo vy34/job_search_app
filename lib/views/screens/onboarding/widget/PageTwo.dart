@@ -33,7 +33,7 @@ class PageTwo extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
                   child: Text(
-                    'Explore all the most exciting job roles based on your interest and study major. Find your dream job, and start your career',
+                    'Explore all the most exciting job roles based on your interest and study major.',
                     style: appStyle(15, Color(kLight.value), FontWeight.normal),
                     textAlign: TextAlign.center,
                   ),
