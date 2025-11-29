@@ -3,7 +3,6 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:job_search_app/controllers/zoom_provider.dart';
 import 'package:job_search_app/views/common/drawer/drawerScreen.dart';
 import 'package:job_search_app/views/common/exports.dart';
-import 'package:job_search_app/views/common/reusable_text.dart';
 import 'package:job_search_app/views/screens/applications/applied_jobs.dart';
 import 'package:job_search_app/views/screens/auth/profile_page.dart';
 import 'package:job_search_app/views/screens/bookmarks/bookmarks_page.dart';

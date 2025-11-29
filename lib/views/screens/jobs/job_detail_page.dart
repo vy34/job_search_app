@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:job_search_app/controllers/bookmark_provider.dart';
 import 'package:job_search_app/controllers/jobs_provider.dart';
+import 'package:job_search_app/controllers/login_provider.dart';
+import 'package:job_search_app/models/response/bookmarks/book_res.dart';
 import 'package:job_search_app/models/response/jobs/get_job.dart';
 import 'package:job_search_app/views/common/BackBtn.dart';
 import 'package:job_search_app/views/common/app_bar.dart';
@@ -29,7 +32,7 @@ class JobDetailPage extends StatefulWidget {
 }
 
 class _JobDetailPageState extends State<JobDetailPage> {
-  late Future<GetJobRes> _jobFuture; // 👈 Future cục bộ
+  late Future<GetJobRes> _jobFuture; //  Future cục bộ
 
   @override
   void initState() {
@@ -37,22 +40,55 @@ class _JobDetailPageState extends State<JobDetailPage> {
     // Gọi API 1 lần duy nhất khi mở màn
     final jobsNotifier = Provider.of<JobsNotifier>(context, listen: false);
     _jobFuture = jobsNotifier.getJob(widget.id);
+
+    // Kiểm tra bookmark status khi mở detail page
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final bookNotifier = Provider.of<BookNotifier>(context, listen: false);
+      bookNotifier.getBookMark(widget.id);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    var loginProvider = Provider.of<LoginNotifier>(context);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: CustomAppBar(
           actions: [
-            GestureDetector(
-              onTap: () {},
-              child: Padding(
-                padding: EdgeInsets.only(right: 12.w),
-                child: const Icon(Fontisto.bookmark),
-              ),
-            ),
+            loginProvider.loggedIn != false
+                ? Consumer<BookNotifier>(
+                    builder: (context, bookNotifier, child) {
+                      return GestureDetector(
+                        onTap: () {
+                          if (bookNotifier.bookmark == true) {
+                            bookNotifier.deleteBookmark(
+                              bookNotifier.bookmarkId,
+                            );
+                          } else {
+                            BookMarkReqRes model = BookMarkReqRes(
+                              job: widget.id,
+                            );
+                            var newModel = bookMarkReqResToJson(model);
+                            bookNotifier.addBookmark(newModel);
+                          }
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 12.w),
+                          child: Icon(
+                            bookNotifier.bookmark == false
+                                ? Fontisto.bookmark
+                                : Fontisto.bookmark_alt,
+                            color: bookNotifier.bookmark == false
+                                ? Color(kDark.value)
+                                : Color(kOrange.value),
+                            size: 22.sp,
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                : SizedBox.shrink(),
           ],
           child: const BackBtn(),
         ),
@@ -61,7 +97,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
         context,
         FutureBuilder<GetJobRes>(
           future:
-              _jobFuture, // 👈 dùng future cục bộ, không dùng jobsNotifier.job
+              _jobFuture, //  dùng future cục bộ, không dùng jobsNotifier.job
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const PageLoader();
@@ -223,7 +259,9 @@ class _JobDetailPageState extends State<JobDetailPage> {
                     child: Padding(
                       padding: EdgeInsets.only(bottom: 20.0.w),
                       child: CustomOutlineBtn(
-                        text: "Please Login",
+                        text: loginProvider.loggedIn == false
+                            ? "Please Login"
+                            : "Apply Now",
                         hieght: hieght * 0.06,
                         color: Color(kLight.value),
                         color2: Color(kOrange.value),

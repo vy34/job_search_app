@@ -11,6 +11,8 @@ const kLightBlue = Color(0xff3663e3);
 const kDarkBlue = Color(0xff1c153e);
 const kLightPurple = Color(0xff6352c5);
 const kDarkPurple = Color(0xff6352c5);
+const kNewBlue = Color(0xFF2381E3);
+const kGreen = Color(0xFFEFFFFC);
 
 // double hieght = 812.h;
 // double width = 375.w;
@@ -39,4 +41,8 @@ List<String> skills = [
   "AWS",
 ];
 
-List<String> profile = [];
+// List<String> profile = [];
+
+String username = '';
+String userUid = '';
+String profile = '';

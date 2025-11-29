@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:job_search_app/constants/app_constants.dart';
 import 'package:job_search_app/views/common/custom_outline_btn.dart';
 import 'package:job_search_app/views/common/exports.dart';
 import 'package:job_search_app/views/screens/mainscreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PageThree extends StatelessWidget {
   const PageThree({super.key});
@@ -39,7 +38,10 @@ class PageThree extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             CustomOutlineBtn(
-              onTap: () {
+              onTap: () async {
+                final SharedPreferences prefs =
+                    await SharedPreferences.getInstance();
+                prefs.setBool('entrypoint', true);
                 Get.to(() => const Mainscreen());
               },
               hieght: hieght * 0.05,

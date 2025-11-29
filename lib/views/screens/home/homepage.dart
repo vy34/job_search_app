@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:job_search_app/constants/app_constants.dart';
+import 'package:job_search_app/controllers/login_provider.dart';
 import 'package:job_search_app/views/common/app_bar.dart';
 import 'package:job_search_app/views/common/app_style.dart';
 import 'package:job_search_app/views/common/drawer/drawer_widget.dart';
 import 'package:job_search_app/views/common/heading_widget.dart';
 import 'package:job_search_app/views/common/search.dart';
-import 'package:job_search_app/views/screens/auth/login.dart';
 import 'package:job_search_app/views/screens/auth/profile_page.dart';
 import 'package:job_search_app/views/screens/jobs/job_list_page.dart';
 import 'package:job_search_app/views/screens/jobs/widgets/PopularJobs.dart';
 import 'package:job_search_app/views/screens/jobs/widgets/Recentlist.dart';
 import 'package:job_search_app/views/screens/search/search_page.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,6 +25,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    String imageUrl =
+        'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png';
+    var loginNotifier = Provider.of<LoginNotifier>(context);
+    loginNotifier.getPref();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50.h),
@@ -34,13 +38,12 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.all(12.0.h),
               child: GestureDetector(
                 onTap: () {
-                  // Get.to(() => const ProfilePage(drawer: false));
-                  Get.to(() => const LoginPage());
+                  Get.to(() => const ProfilePage(drawer: false));
                 },
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(50)),
-                  child: Image.asset(
-                    'assets/images/account.jpg',
+                  child: Image.network(
+                    imageUrl,
                     width: 30.h,
                     height: 30.h,
                     fit: BoxFit.cover,

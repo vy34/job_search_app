@@ -4,8 +4,6 @@ import 'package:job_search_app/constants/app_constants.dart';
 import 'package:job_search_app/controllers/jobs_provider.dart';
 import 'package:job_search_app/models/response/jobs/jobs_response.dart';
 import 'package:job_search_app/views/common/loader.dart';
-import 'package:job_search_app/views/common/pages_loader.dart';
-import 'package:job_search_app/views/common/styled_container.dart';
 import 'package:job_search_app/views/screens/jobs/widgets/JobsHorizontalTile.dart';
 import 'package:job_search_app/views/screens/jobs/job_detail_page.dart';
 import 'package:provider/provider.dart';

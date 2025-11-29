@@ -3,21 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:job_search_app/constants/app_constants.dart';
+import 'package:job_search_app/controllers/bookmark_provider.dart';
 import 'package:job_search_app/controllers/image_provider.dart';
 import 'package:job_search_app/controllers/jobs_provider.dart';
 import 'package:job_search_app/controllers/login_provider.dart';
 import 'package:job_search_app/controllers/onboarding_provider.dart';
 import 'package:job_search_app/controllers/profile_provider.dart';
 import 'package:job_search_app/controllers/signup_provider.dart';
+import 'package:job_search_app/controllers/skills_provider.dart';
 import 'package:job_search_app/controllers/zoom_provider.dart';
+import 'package:job_search_app/models/response/auth/skills.dart';
 import 'package:job_search_app/views/screens/mainscreen.dart';
 import 'package:job_search_app/views/screens/onboarding/onboarding_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Widget defaultHome = const OnboardingScreen();
 
-///TODO: Hook the app to firebase using firebase cli
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final entrypoint = prefs.getBool('entrypoint') ?? false;
+  if (entrypoint == true) {
+    defaultHome = const Mainscreen();
+  }
   runApp(
     MultiProvider(
       providers: [
@@ -28,6 +37,8 @@ void main() async {
         ChangeNotifierProvider(create: (context) => JobsNotifier()),
         ChangeNotifierProvider(create: (context) => ImageUploader()),
         ChangeNotifierProvider(create: (context) => ProfileNotifier()),
+        ChangeNotifierProvider(create: (context) => BookNotifier()),
+        ChangeNotifierProvider(create: (context) => SkillsNotifier()),
       ],
       child: const MyApp(),
     ),

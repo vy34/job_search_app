@@ -5,7 +5,7 @@ BookMark bookMarkFromJson(String str) => BookMark.fromJson(json.decode(str));
 String bookMarkToJson(BookMark data) => json.encode(data.toJson());
 
 class BookMark {
-    final bool status;
+    final String status;
     final String bookmarkId;
 
     BookMark({
@@ -14,8 +14,8 @@ class BookMark {
     });
 
     factory BookMark.fromJson(Map<String, dynamic> json) => BookMark(
-        status: json["status"],
-        bookmarkId: json["bookmarkId"],
+        status: json["status"]?.toString() ?? "",
+        bookmarkId: json["bookmarkId"] ?? "",
     );
 
     Map<String, dynamic> toJson() => {

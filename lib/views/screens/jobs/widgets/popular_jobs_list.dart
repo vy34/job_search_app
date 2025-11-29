@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:job_search_app/constants/app_constants.dart';
 import 'package:job_search_app/controllers/jobs_provider.dart';
 import 'package:job_search_app/models/response/jobs/jobs_response.dart';
 import 'package:job_search_app/views/common/loader.dart';
